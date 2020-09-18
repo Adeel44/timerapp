@@ -28,6 +28,9 @@ mongoose.connect(process.env.DB_CONNECT,
 app.use(express.json())
 
  //Route middlewae
+ app.use('/' , (req , res)=>{
+   res.send({success_note: "welcome to Timer app"})
+ })
  app.use('/api/user' , authRoute)
 
  app.use('/api/task' , taskRoute)
