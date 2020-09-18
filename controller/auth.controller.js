@@ -1,8 +1,7 @@
 var jwt = require('jsonwebtoken');
 
-const User = require('../model/User')
+const User = require('../model/user')
 const bcrypt = require('bcryptjs');
-const verify = require('../middleware/verifyToken')
 
 const{registerValidation , loginValidation} = require('../config/validation')
 

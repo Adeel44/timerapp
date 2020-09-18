@@ -5,6 +5,7 @@ const mongoose = require('mongoose');
 
 const authRoute = require('./routes/auth')
 const taskRoute = require('./routes/task')
+const attendanceRoute = require('./routes/attendance')
 
 
 
@@ -30,6 +31,7 @@ app.use(express.json())
  app.use('/api/user' , authRoute)
 
  app.use('/api/task' , taskRoute)
+ app.use('/api/attendance' , attendanceRoute)
  
 
 
