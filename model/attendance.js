@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 const attendanceScheme = new mongoose.Schema({
-    userId: String,
+    
     checkIn: String,
     checkOut: String,
     lateComingReason:{
@@ -11,7 +11,8 @@ const attendanceScheme = new mongoose.Schema({
     beforeTimeGoingReason:{
         type:String,
         max:1000,
-    }
+    },
+    user: { type: mongoose.Schema.Types.ObjectId, ref: "User" }
 
 })
 

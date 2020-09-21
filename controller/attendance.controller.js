@@ -1,41 +1,57 @@
 const Attendance = require('../model/attendance');
+const User = require('../model/user')
 const error = require('../constant/error')
 
 module.exports.create = (req, res) => {
 
-    const attendance = new Attendance({
-
-        checkIn: req.body.checkIn,
-        checkOut: req.body.checkOut,
-        lateComingReason: req.body.lateComingReason,
-        beforeTimeGoingReason: req.body.beforeTimeGoingReason
-                  
-        })
-    
-        attendance.save()
-        .then(data => {
-            if (!data || data == null) {
-                return res.status(200).send({
-                    message: "Records Not Saved",
-                    data: {},
-                    status: 'error'
-                });
-            }
-            res.status(200).send({
-                message: "Record saved successfully",
-                status: 'status',
-                data: data
+    User.findById(req.body.userId)
+    .then(user=>{
+        if (!user) {
+            return res.status(404).json({
+              message: "User not found"
+            });
+           }
+           const attendance = new Attendance({
+            userId: req.body.userId,  
+            checkIn: req.body.checkIn,
+            checkOut: req.body.checkOut,
+            lateComingReason: req.body.lateComingReason,
+            beforeTimeGoingReason: req.body.beforeTimeGoingReason,
+            user: req.body.userId
+                      
             })
-        })
-        .catch(err => {
-            let errorObject = error.getErrorMessage(err)
-            res.status(errorObject.code).send({ message: errorObject.message, data: {} })
-        })
+        
+            attendance.save()
+            .then(data => {
+                if (!data || data == null) {
+                    return res.status(200).send({
+                        message: "Records Not Saved",
+                        data: {},
+                        status: 'error'
+                    });
+                }
+                res.status(200).send({
+                    message: "Record saved successfully",
+                    status: 'status',
+                    data: data
+                })
+            })
+            .catch(err => {
+                let errorObject = error.getErrorMessage(err)
+                res.status(errorObject.code).send({ message: errorObject.message, data: {} })
+            })
+    })
+    .catch(err => {
+        let errorObject = error.getErrorMessage(err)
+        res.status(errorObject.code).send({ message: errorObject.message, data: {} })
+    })
+
 }
 
 module.exports.findAll = (req, res) => {
 
     Attendance.find()
+    .populate("user")
         .then(data => {
             if (!data || data == null) {
                 return res.status(200).send({
@@ -61,7 +77,7 @@ module.exports.findAll = (req, res) => {
 module.exports.findOne = (req, res) => {
 
     Attendance.findById(req.params.id)
-
+    .populate("user")
     .then(data => {
             if (!data || data == null) {
                 return res.status(200).send({
