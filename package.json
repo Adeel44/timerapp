@@ -11,10 +11,17 @@
   "dependencies": {
     "@hapi/joi": "^15.0.3",
     "bcryptjs": "^2.4.3",
+    "connect-mongodb-session": "^2.4.1",
     "dotenv": "^8.2.0",
+    "ejs": "^3.1.5",
     "express": "^4.17.1",
+    "express-session": "^1.17.1",
+    "googleapis": "^61.0.0",
     "jsonwebtoken": "^8.5.1",
+    "method-override": "^3.0.0",
     "mongoose": "^5.10.5",
-    "nodemon": "^2.0.4"
+    "nodemailer": "^6.4.14",
+    "nodemon": "^2.0.4",
+    "path": "^0.12.7"
   }
 }

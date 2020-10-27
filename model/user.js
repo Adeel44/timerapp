@@ -19,6 +19,14 @@ const userScheme = new mongoose.Schema({
         min:6,
         max:1000
     },
+    role:{
+        type:String,
+        default:"user"
+    },
+    status:{
+        type: String,
+        default: "pending"
+    },
     date:{
         type:Date,
         default:Date.now
